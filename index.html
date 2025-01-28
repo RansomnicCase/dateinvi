@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Adventure with My Queen 👑</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #F8F0FC;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6C4DAB 0%, #9D71E8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .invitation-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-width: 600px;
+            margin: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .pixel-heart {
+            font-size: 3rem;
+            color: #9D71E8;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        .details {
+            background: white;
+            padding: 50px 20px;
+        }
+
+        .arcade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .arcade-card {
+            background: #F8F0FC;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(108,77,171,0.1);
+        }
+
+        .arcade-card:hover {
+            transform: translateY(-10px);
+        }
+
+        button {
+            background: linear-gradient(45deg, #6C4DAB, #9D71E8);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(108,77,171,0.3);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(108,77,171,0.4);
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .countdown-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            min-width: 150px;
+            box-shadow: 0 5px 15px rgba(108,77,171,0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .countdown-item { min-width: 100px; padding: 15px; }
+            .invitation-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="invitation-box">
+                <h1>Hey cutes.</h1>
+                <div class="pixel-heart">
+                    <i class="fas fa-gamepad"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <p style="font-size: 1.2rem; margin-bottom: 20px; color: #555;">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum maxime omnis quia quas expedita nobis 
+                    quibusdam quis voluptas sint. 
+                    Esse, aut minus. Tempora facere officiis quam amet, quos inventore odio.<br>
+                    <span style="color: #6C4DAB; font-weight: 600;">1st February 2025 at 12 PM</span>"
+                </p>
+                <button onclick="revealDetails()">Accept Your Quest 🕹️</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="details" id="details" style="display: none;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px; color: #6C4DAB;">Our Adventure Countdown ⏳</h2>
+            <div id="countdown"></div>
+
+            <div class="arcade-grid">
+                <div class="arcade-card">
+                    <h3>📅 Schedule</h3>
+                    <p>12:00 PM - Arcade Arrival<br>
+                    12:30 PM - bowling<br>
+                    2:30 PM - window shopping<br>
+                    3:00 PM - lunch<br>
+                    4:00 PM - makeout in the parking lot</p>
+                    <i class="fas fa-clock" style="color: #6C4DAB; font-size: 2rem; margin-top: 10px;"></i>
+                </div>
+                <div class="arcade-card">
+                    <h3>🎮 Games Preview</h3>
+                    <p>Air Hockey<br>
+                    bowling<br>
+                    lorem ipsum<br>
+                    lorem ipsum</p>
+                    <i class="fas fa-trophy" style="color: #6C4DAB; font-size: 2rem; margin-top: 10px;"></i>
+                </div>
+                <div class="arcade-card">
+                    <h3>💌 Love Note</h3>
+                    <p>Every moment with you feels like hitting the jackpot. Can't wait to see your victory dance!</p>
+                    <i class="fas fa-heart" style="color: #6C4DAB; font-size: 2rem; margin-top: 10px;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        const eventDate = new Date('2025-02-01T06:30:00Z');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `
+                <div class="countdown-item">
+                    <h3>${days}</h3>
+                    <p>Days</p>
+                </div>
+                <div class="countdown-item">
+                    <h3>${hours}</h3>
+                    <p>Hours</p>
+                </div>
+                <div class="countdown-item">
+                    <h3>${minutes}</h3>
+                    <p>Minutes</p>
+                </div>
+                <div class="countdown-item">
+                    <h3>${seconds}</h3>
+                    <p>Seconds</p>
+                </div>
+            `;
+        }
+
+        setInterval(updateCountdown, 1000);
+
+        function revealDetails() {
+            document.getElementById('details').style.display = 'block';
+            window.scrollTo({
+                top: document.getElementById('details').offsetTop - 50,
+                behavior: 'smooth'
+            });
+
+            // Confetti Effect
+            const colors = ['#6C4DAB', '#9D71E8', '#FFD700', '#E6E6FA'];
+            for(let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+                confetti.style.zIndex = '9999';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Confetti Animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
