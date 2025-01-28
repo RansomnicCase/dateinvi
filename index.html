@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Adventure with My Queen 👑</title>
+    <title>Arcade Adventure & Memory Lane</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -129,6 +129,87 @@
             box-shadow: 0 5px 15px rgba(108,77,171,0.1);
         }
 
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #FFD700;
+            pointer-events: none;
+            animation: fall 3s linear infinite;
+        }
+
+        .memory-lane {
+            margin: 50px 0;
+            padding: 30px 0;
+            background: #F8F0FC;
+        }
+
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 20px 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .memory-card {
+            flex: 0 0 300px;
+            height: 400px;
+            scroll-snap-align: start;
+            background: #F8F0FC;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(108,77,171,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .memory-card::before {
+            content: "Our Memory";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #6C4DAB;
+            font-size: 1.2rem;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #6C4DAB;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+        }
+
+        footer {
+            background: #6C4DAB;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -140,10 +221,21 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             .countdown-item { min-width: 100px; padding: 15px; }
             .invitation-box { padding: 25px; }
+            .memory-card { flex: 0 0 250px; height: 350px; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
@@ -151,58 +243,93 @@
     <div class="hero">
         <div class="container">
             <div class="invitation-box">
-                <h1>Hey cutes.</h1>
+                <h1>Our Arcade Adventure</h1>
                 <div class="pixel-heart">
                     <i class="fas fa-gamepad"></i>
                     <i class="fas fa-heart"></i>
                     <i class="fas fa-ticket-alt"></i>
                 </div>
                 <p style="font-size: 1.2rem; margin-bottom: 20px; color: #555;">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum maxime omnis quia quas expedita nobis 
-                    quibusdam quis voluptas sint. 
-                    Esse, aut minus. Tempora facere officiis quam amet, quos inventore odio.<br>
-                    <span style="color: #6C4DAB; font-weight: 600;">1st February 2025 at 12 PM</span>"
+                    My favorite partner in fun,<br>
+                    Get ready for a day filled with:<br>
+                    🕹️ Competitive air hockey matches<br>
+                    🎳 Glow-in-the-dark bowling<br>
+                    🍔 Cheesy fries fuel stops<br>
+                    💖 Laughter and sweet moments<br>
+                    <span style="color: #6C4DAB; font-weight: 600;">Saturday, February 1st 2025 @ 12:00 PM</span>
                 </p>
-                <button onclick="revealDetails()">Accept Your Quest 🕹️</button>
+                <button onclick="revealDetails()">Let's Play! 🎯</button>
             </div>
         </div>
     </div>
 
     <div class="details" id="details" style="display: none;">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 40px; color: #6C4DAB;">Our Adventure Countdown ⏳</h2>
+            <h2 class="section-title">Countdown to Fun ⏳</h2>
             <div id="countdown"></div>
 
             <div class="arcade-grid">
                 <div class="arcade-card">
-                    <h3>📅 Schedule</h3>
-                    <p>12:00 PM - Arcade Arrival<br>
-                    12:30 PM - bowling<br>
-                    2:30 PM - window shopping<br>
-                    3:00 PM - lunch<br>
-                    4:00 PM - makeout in the parking lot</p>
-                    <i class="fas fa-clock" style="color: #6C4DAB; font-size: 2rem; margin-top: 10px;"></i>
+                    <h3>📅 Game Plan</h3>
+                    <p>12:00 PM - Meet at Arcade<br>
+                    12:30 PM - Air Hockey Duel<br>
+                    1:30 PM - Retro Game Marathon<br>
+                    2:30 PM - Cosmic Bowling<br>
+                    3:30 PM - Snack Break<br>
+                    4:30 PM - Prize Redemption</p>
+                    <i class="fas fa-clock" style="color: #6C4DAB; font-size: 2rem;"></i>
                 </div>
                 <div class="arcade-card">
-                    <h3>🎮 Games Preview</h3>
-                    <p>Air Hockey<br>
-                    bowling<br>
-                    lorem ipsum<br>
-                    lorem ipsum</p>
-                    <i class="fas fa-trophy" style="color: #6C4DAB; font-size: 2rem; margin-top: 10px;"></i>
+                    <h3>🏆 Challenges</h3>
+                    <p>Dance Dance Revolution<br>
+                    Basketball Free Throw Contest<br>
+                    Ticket Blitz Challenge<br>
+                    Skeeball Accuracy Test<br>
+                    Photo Booth Madness</p>
+                    <i class="fas fa-trophy" style="color: #6C4DAB; font-size: 2rem;"></i>
                 </div>
                 <div class="arcade-card">
-                    <h3>💌 Love Note</h3>
-                    <p>Every moment with you feels like hitting the jackpot. Can't wait to see your victory dance!</p>
-                    <i class="fas fa-heart" style="color: #6C4DAB; font-size: 2rem; margin-top: 10px;"></i>
+                    <h3>💌 Note for You</h3>
+                    <p>Every moment with you is like finding the golden ticket. Can't wait to see your champion smile when you beat me... again! 😘</p>
+                    <i class="fas fa-heart" style="color: #6C4DAB; font-size: 2rem;"></i>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="memory-lane">
+        <div class="container">
+            <h2 class="section-title">Down the Memory Lane</h2>
+            <div class="carousel-container">
+                <div class="memory-card">
+                    <!-- Add image: <img src="memory1.jpg"> -->
+                </div>
+                <div class="memory-card">
+                    <!-- Add image: <img src="memory2.jpg"> -->
+                </div>
+                <div class="memory-card">
+                    <!-- Add image: <img src="memory3.jpg"> -->
+                </div>
+                <div class="memory-card">
+                    <!-- Add image: <img src="memory4.jpg"> -->
+                </div>
+                <div class="memory-card">
+                    <!-- Add image: <img src="memory5.jpg"> -->
+                </div>
+                <div class="memory-card">
+                    <!-- Add image: <img src="memory6.jpg"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Powered by endless laughter and pixelated love 💞</p>
+        <p>Emergency raincheck code: ↑↑↓↓←→←→ B A Start</p>
+    </footer>
+
     <script>
-        
-        const eventDate = new Date('2025-02-01T06:30:00Z');
+        const eventDate = new Date('2025-02-01T12:00:00Z');
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -234,6 +361,25 @@
         }
 
         setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function createConfetti() {
+            const colors = ['#6C4DAB', '#9D71E8', '#FFD700'];
+            for(let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                
+                if(Math.random() > 0.5) {
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite, spin 2s linear infinite`;
+                }
+
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
 
         function revealDetails() {
             document.getElementById('details').style.display = 'block';
@@ -241,36 +387,8 @@
                 top: document.getElementById('details').offsetTop - 50,
                 behavior: 'smooth'
             });
-
-            // Confetti Effect
-            const colors = ['#6C4DAB', '#9D71E8', '#FFD700', '#E6E6FA'];
-            for(let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.width = '10px';
-                confetti.style.height = '10px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-10px';
-                confetti.style.borderRadius = '50%';
-                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
-                confetti.style.zIndex = '9999';
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => confetti.remove(), 5000);
-            }
+            createConfetti();
         }
-
-        // Confetti Animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh) rotate(360deg);
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
